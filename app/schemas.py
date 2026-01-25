@@ -42,9 +42,31 @@ class PortfolioOut(BaseModel):
     current_balance: int
     last_closing_price: float
     ltp: float
-
-class My_details_Out(BaseModel):
+class My_details_Out_Share(BaseModel):
     username:str
     email:EmailStr
+
     class Config:
         from_attributes = True
+class CollateralOut(BaseModel):
+    amount:float
+    class Config:
+        from_attributes = True
+class My_details_Out_Trade(BaseModel):
+    username:str
+    email:EmailStr
+    collateral_amount: CollateralOut | None
+
+    class Config:
+        from_attributes = True
+class AddCollateral(BaseModel):
+    amount: float
+    payment_method:str
+    remarks:str
+    class Config:
+        from_attributes = True
+# class StockOrder(BaseModel):
+#     symbol:str
+#     quantity:int
+#     price:float
+#     remarks:Optional[str]=None

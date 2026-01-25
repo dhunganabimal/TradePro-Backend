@@ -26,7 +26,7 @@ def create_share_user(user:schemas.ShareUsers,db: Session = Depends(get_db)):
 
 
 @router .get("/{id}",response_model=schemas.Users_Out)
-def get_user(id:int,db: Session = Depends(get_db)):
+def get_user(id:int,db: Session = Depends(get_db),):
      user=db.query(models.ShareUsers).filter(models.ShareUsers.id==id).first()
      if not user:
          raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,

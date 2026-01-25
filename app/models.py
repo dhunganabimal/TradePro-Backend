@@ -30,7 +30,7 @@ class TradeUsers(Base):
     password = Column(String, primary_key=False, unique=True, nullable=False)
     share_username=Column(String,primary_key=False,unique=True,nullable=False)
     #share_owner = relationship("ShareUsers", back_populates="trade_account")
-
+    collateral_amount=relationship("CollateralAmount",back_populates="trade_users",uselist=False)
 
 class Portfolio(Base):
     __tablename__ = 'portfolio'
@@ -45,6 +45,18 @@ class Portfolio(Base):
     user_id = Column(Integer, ForeignKey('share_users.id', ondelete="CASCADE"), nullable=False)
 
     owner = relationship("ShareUsers", back_populates="portfolio")
+
+class CollateralAmount(Base):
+    __tablename__="collateral_amount"
+
+    id = Column(Integer, primary_key=True)
+    payment_method=Column(String,primary_key=False,nullable=False)
+    amount=Column(Float,primary_key=False,nullable=True)
+    remarks=Column(String,primary_key=False,nullable=True)
+    trade_users_id=Column(Integer, ForeignKey('trade_users.id', ondelete="CASCADE"), nullable=False)
+    trade_users=relationship("TradeUsers",back_populates="collateral_amount")
+
+
 
 
 
